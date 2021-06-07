@@ -193,6 +193,7 @@ namespace GameJam2021.Control
             if (isTouchingFront && !grounded && moveInput != 0)
             {
                 wallSliding = true;
+                velocity.x = 0;
                 velocity = new Vector3(velocity.x, Mathf.Clamp(velocity.y, -wallSlidingSpeed, float.MaxValue));
             }
             else
@@ -256,14 +257,15 @@ namespace GameJam2021.Control
                 IPossesable[] possesables = possesedObject.GetComponents<IPossesable>();
                 foreach (IPossesable possesable in possesables)
                 {
-                    possesable.OnUnPosses(this);
-                    PlaySound(unPossessClip);
+                    if (possesable.OnUnPosses(this))
+                    {
+                        PlaySound(unPossessClip);
+                        speedFraction = 1f;
+                        isPossesing = false;
+                        possesedObject = null;
+                        cinemachineVirtualCamera.Follow = transform;
+                    }
                 }
-                transform.position = possesedObject.transform.position + new Vector3(0f, 1f, 0f);
-                speedFraction = 1f;
-                isPossesing = false;
-                possesedObject = null;
-                cinemachineVirtualCamera.Follow = transform;
             }
 
             if (transform.position.y < -50f)

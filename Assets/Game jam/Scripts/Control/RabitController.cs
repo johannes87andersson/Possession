@@ -9,10 +9,12 @@ namespace GameJam2021.Control
         [SerializeField] float jumpHeight = 4f;
         [SerializeField] AudioSource audioSource = null;
         [SerializeField] AudioClip jumpClip = null;
+        [SerializeField] LayerMask groundMask;
 
         public bool possesed = false;
 
         private int animJump = 0;
+        private RaycastHit2D hitAbove;
 
         protected override void Awake()
         {
@@ -56,6 +58,8 @@ namespace GameJam2021.Control
             }
 
             Jump();
+
+            hitAbove = Physics2D.Raycast(transform.position, transform.up, 0.5f, groundMask);
 
             grounded = false;
             foreach (Collider2D hit in hits)
@@ -118,10 +122,15 @@ namespace GameJam2021.Control
 
         public bool OnUnPosses(PlayerController playerController)
         {
+            if (!grounded || hitAbove)
+            {
+                return false;
+            }
             playerController.GetComponent<SpriteRenderer>().enabled = true;
             playerController.GetComponent<BoxCollider2D>().enabled = true;
+            playerController.transform.position = transform.position + new Vector3(0f, 0f, 0f);
             possesed = false;
-            return false;
+            return true;
         }
     }
 }

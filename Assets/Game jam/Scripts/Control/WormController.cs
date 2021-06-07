@@ -90,7 +90,8 @@ namespace GameJam2021.Control
             possesed = false;
             playerController.GetComponent<SpriteRenderer>().enabled = true;
             playerController.GetComponent<BoxCollider2D>().enabled = true;
-            return false;
+            playerController.transform.position = transform.position + new Vector3(0f, 1f, 0f);
+            return true;
         }
     }
 }

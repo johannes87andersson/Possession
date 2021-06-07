@@ -173,7 +173,7 @@ MonoBehaviour:
   ledgeGrabHeightCheck: {fileID: 2165559307563677524}
   groundCheck: {fileID: 3952501527443251115}
   groundedRadius: 0.2
-  checkRadius: 0.25
+  checkRadius: 0.1
   wallSlidingSpeed: 2
   wallSlideLayer:
     serializedVersion: 2

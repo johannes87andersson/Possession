@@ -150,6 +150,9 @@ MonoBehaviour:
   jumpHeight: 2
   audioSource: {fileID: 4898993438901844289}
   jumpClip: {fileID: 8300000, guid: a8178db1186406f419d286db751e6a39, type: 3}
+  groundMask:
+    serializedVersion: 2
+    m_Bits: 129
   possesed: 0
 --- !u!82 &4898993438901844289
 AudioSource:
